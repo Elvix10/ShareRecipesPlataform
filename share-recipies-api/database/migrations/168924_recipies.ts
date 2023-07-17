@@ -9,6 +9,13 @@ export default class extends BaseSchema {
       table.string('title')
       table.string('description')
       table.string('image')
+      table
+        .integer("user_id")
+        .unsigned()
+        .references("id")
+        .inTable("users")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

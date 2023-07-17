@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
 
 export default class Recipie extends BaseModel {
   @column({ isPrimary: true })
@@ -7,6 +8,8 @@ export default class Recipie extends BaseModel {
 
   @column()
   public title:String
+  @column()
+  public user_id:Number
 
   @column()
   public description:String
@@ -22,4 +25,7 @@ export default class Recipie extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(()=>User)
+  public restaurant: BelongsTo<typeof User>
 }
