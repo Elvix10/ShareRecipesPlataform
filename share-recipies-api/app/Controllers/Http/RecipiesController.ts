@@ -34,7 +34,6 @@ export default class RecipiesController {
 
   public async index() {
     const recipies = await Recipie.all();
-
     return {
       data: recipies,
     };

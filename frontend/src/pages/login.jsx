@@ -2,23 +2,40 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
+import { axiosInstance } from "../utils/axios";
+import { useSignIn } from "react-auth-kit";
+//import { Link } from "react-router-dom";
+
 
 
 function Login() {
-  const handleSubmit = (event) => {
+  const signIn=useSignIn()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get("email"),
+      username: data.get("username"),
       password: data.get("password"),
     });
+
+   const response=await axiosInstance.post('/login',{
+      username: data.get("username"),
+      password: data.get("password"),
+    }) 
+
+    signIn({
+      token:response.data.token,
+      expiresIn:3600,
+      tokenType:'Bearer',
+      authState:{username:data.get("username")}
+    })
+
   };
 
   return (
@@ -68,7 +85,6 @@ function Login() {
               id="email"
               label="username"
               name="username"
-              
               autoFocus
             />
             <TextField
@@ -93,7 +109,7 @@ function Login() {
             <Grid container>
             
               <Grid item>
-                <Link href="register" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

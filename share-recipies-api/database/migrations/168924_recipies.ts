@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('title')
       table.string('description')
       table.string('image')
+      table.string('ingredients')
       table
         .integer("user_id")
         .unsigned()

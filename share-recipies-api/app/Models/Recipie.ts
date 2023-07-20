@@ -15,7 +15,7 @@ export default class Recipie extends BaseModel {
   public description:String
 
   @column()
-  public ingredients:Array<String>
+  public ingredients:String
 
   @column()
   public image:String
