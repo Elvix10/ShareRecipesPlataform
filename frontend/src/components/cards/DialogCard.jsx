@@ -10,65 +10,80 @@ import { axiosInstance } from "../../utils/axios";
 import { useDispatch } from "react-redux";
 
 import Swal from "sweetalert2";
+import { Box } from "@mui/material";
 
 export default function DialogCard({ open, close, edit, data }) {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(edit ? data.title : "");
-  const [url, setUrl] = useState(edit ? data.url : "");
+  const [title, setTitle] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [descrption, setDescription] = useState("");
 
-  async function saveLink() {
-    try {
-      await axiosInstance
-        .post("/links", { title: title, url: url })
-        .then(() => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Link saved",
-          });
-          setTitle("");
-          setUrl("");
-          close();
+  const handleSubmit = async () => {
+    const response = await axiosInstance
+      .post("/recipie", {
+        title: title,
+        ingredients: ingredients,
+        description: descrption,
+        user_id: 1,
+      })
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Link saved",
         });
-      //dispatch(getMyLinks());
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
+        close();
+      });
+
+    console.log("response", response);
+  };
 
   return (
     <div>
-      <Dialog md open={open} onClose={close}>
-        <DialogTitle>{ "New Recipie"}</DialogTitle>
+      <Dialog open={open} onClose={close}>
+        <DialogTitle>{"New Recipie"}</DialogTitle>
         <DialogContent>
-          <Stack spacing={2} sx={{ mt: 1 }}>
+          <Box sx={{ mt: 1 }}>
             <TextField
-              value={title}
+              name="title"
               onChange={(event) => setTitle(event.target.value)}
+              id="title"
               fullWidth
-              label="name"
+              label="title"
               variant="outlined"
             />
             <TextField
-              value={url}
-              onChange={(event) => setUrl(event.target.value)}
+              name="ingredients"
+              id="ingredients"
+              onChange={(event) => setIngredients(event.target.value)}
               fullWidth
               label="ingredients"
               variant="outlined"
+              sx={{ mt: 3 }}
             />
-             <TextField
-              
-              //onChange={(event) => setUrl(event.target.value)}
+            <TextField
+              name="description"
+              id="description"
+              onChange={(event) => setDescription(event.target.value)}
               fullWidth
               label="Description"
               multiline
               rows={6}
               variant="outlined"
+              sx={{ mt: 3 }}
             />
-          </Stack>
+          </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={saveLink}>Save</Button>
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -1,8 +1,20 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import RecipeCard from "./cards/RecipieCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyRecipie } from "../store/slice/recipie";
 
 function MainContent() {
+  const dispatch = useDispatch();
+
+  const { recipie } = useSelector((state) => state.recipie);
+
+  useEffect(() => {
+    dispatch(getMyRecipie());
+  }, [dispatch]);
+
+  console.log("recipie", recipie);
+
   return (
     <div className="MainContent">
       <Grid container sx={{ m: 3, p: 2 }}>
@@ -11,15 +23,11 @@ function MainContent() {
             My Recipies
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
+            {recipie?.map((item) => (
+              <Grid item xs={12} md={3}>
+                <RecipeCard data={item} />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
         <Grid container flexDirection="column">
@@ -27,18 +35,13 @@ function MainContent() {
             All Recepies
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <RecipeCard />
-            </Grid>
+            {recipie?.map((item) => (
+              <Grid item xs={12} md={3}>
+                <RecipeCard data={item} />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
-       
       </Grid>
     </div>
   );

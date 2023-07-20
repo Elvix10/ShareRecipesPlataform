@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import link from './slice/recipie'
+import recipie from './slice/recipie'
+import auth from './slice/auth'
 
 export const store = configureStore({
   reducer: {
-    link:link
+    recipie:recipie,
+    auth:auth
     
   },
 })

@@ -8,29 +8,28 @@ import {
   export const getMyRecipie = createAsyncThunk("getRecipie", async () => {
     try {
       const response = await axiosInstance.get(`/recipie`);
-  
-      return response.data;
+
+     
+      return response.data.data
     } catch (error) {
       console.log(error.response.data);
     }
   });
   
   
-  
-  const linkAdapter = createEntityAdapter({});
+  const recipieAdapter = createEntityAdapter({});
   
   const RecipieSlice = createSlice({
     name: "recipie",
-    initialState: linkAdapter.getInitialState({
-      Recipie: [],
-     
+    initialState: recipieAdapter.getInitialState({
+      recipie: [],   
     }),
   
     extraReducers: {
       [getMyRecipie.fulfilled]: (state, action) => {
-        state.Recipie = action.payload;
-      },
-    
+
+        state.recipie = action.payload;
+      }, 
     },
   });
   

@@ -8,34 +8,28 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { axiosInstance } from "../utils/axios";
-import { useSignIn } from "react-auth-kit";
-//import { Link } from "react-router-dom";
-
-
+import { useDispatch } from "react-redux";
+import { signIn } from "../store/slice/auth";
 
 function Login() {
-  const signIn=useSignIn()
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const response = await axiosInstance.post("/login", {
       username: data.get("username"),
       password: data.get("password"),
     });
 
-   const response=await axiosInstance.post('/login',{
-      username: data.get("username"),
-      password: data.get("password"),
-    }) 
 
-    signIn({
-      token:response.data.token,
-      expiresIn:3600,
-      tokenType:'Bearer',
-      authState:{username:data.get("username")}
-    })
-
+    dispatch(
+      signIn({
+        userToken: response.data.token,
+        user: { username: data.get("username") },
+      })
+    );
   };
 
   return (
@@ -97,7 +91,7 @@ function Login() {
               id="password"
               autoComplete="current-password"
             />
-          
+
             <Button
               type="submit"
               fullWidth
@@ -107,7 +101,6 @@ function Login() {
               Sign In
             </Button>
             <Grid container>
-            
               <Grid item>
                 <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}

@@ -6,16 +6,15 @@ import { AuthProvider } from "react-auth-kit";
 
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/route";
+import { Provider, useSelector } from "react-redux";
+import { store } from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <AuthProvider
-    authType="cookie"
-    authName="_auth"
-    cookieDomain={window.location.hostname}
-    cookieSecure
+  <Provider
+    store={store}
   >
     <RouterProvider router={router} />
-  </AuthProvider>
+  </Provider>
 );

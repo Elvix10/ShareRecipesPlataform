@@ -10,13 +10,22 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import { Grid } from "@mui/material";
 import DialogCard from "./cards/DialogCard";
+import { signOut } from "../store/slice/auth";
+import { useDispatch } from "react-redux";
+import { axiosInstance } from "../utils/axios";
 
 function SideBar() {
+  const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+  const handleLogOut = () => {
+
+    axiosInstance.post('/logout')
+    dispatch(signOut())
   };
 
   const handleClose = () => {
@@ -74,7 +83,7 @@ function SideBar() {
               alignItems: "center",
             }}
           >
-            <Button variant="outlined" startIcon={<ExitToAppIcon />}>
+            <Button onClick={handleLogOut} variant="outlined" startIcon={<ExitToAppIcon />}>
               Logout
             </Button>
           </Grid>

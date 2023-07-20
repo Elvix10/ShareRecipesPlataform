@@ -1,26 +1,24 @@
 import "./App.css";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import { Router, Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import {
+  Router,
+  Routes,
+  Route,
+  BrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import { RequireAuth, useIsAuthenticated } from "react-auth-kit";
 import { PrivateRoute } from "react-auth-kit";
 import Register from "./pages/register";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./store/store";
 
-const Private = ({Component}) => {
-  const isAuthenticated = useIsAuthenticated()
-  const auth = isAuthenticated(); 
-  return auth ? <Component /> : <Navigate to="/login" />
-}
-
 function App() {
-  return (
-    <Provider store={store}>
+  const { userToken } = useSelector((state) => state.auth);
 
-      <Home/>
-    </Provider>
-  );
+ 
+  return <Provider store={store}>{userToken ? <Home /> : <Login />}</Provider>;
 }
 
 export default App;
