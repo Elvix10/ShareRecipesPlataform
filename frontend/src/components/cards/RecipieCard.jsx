@@ -35,16 +35,24 @@ export default function RecipeCard({ data }) {
 
   return (
     <Card>
-      <CardHeader title={data?.title} />
+      <CardHeader
+        title={<Typography variant="h6"  noWrap={!expanded}>
+       
+        {data?.title}
+      </Typography>}
+       
+        subheader="Published by:"
+      />
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image="https://z-p3-scontent.frai2-1.fna.fbcdn.net/v/t39.30808-6/240732521_253362726656570_2978354159663101127_n.jpg?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHpPMIAo1iUXVGJLFMtHTJkZwSVPcxSpQFnBJU9zFKlASoiEaIraBwELh-rTcJgNNNPBJY5ZtJX_EhUEDVoCnYC&_nc_ohc=LuQc4oxTVScAX_vMiN8&_nc_zt=23&_nc_ht=z-p3-scontent.frai2-1.fna&oh=00_AfC74-5Emynkm0N3XqDTvqwUkLAApgo1iwKdplNn7yzWeA&oe=64BE8175"
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-        {'INGREDIENTS: '}{data?.ingredients}
+        <Typography variant="body2" color="text.secondary" noWrap={!expanded}>
+          {"INGREDIENTS: "}
+          {data?.ingredients}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { axiosInstance } from "../utils/axios";
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/slice/auth";
+import { Navigate } from "react-router-dom";
 
 function Register() {
   const dispatch = useDispatch();
@@ -20,17 +21,11 @@ function Register() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const response = await axiosInstance.post("/user", {
+     await axiosInstance.post("/user", {
       username: data.get("username"),
       password: data.get("password"),
-    });
+    }).then(()=><Navigate to='/login'/>)
 
-    dispatch(
-      signIn({
-        userToken: response.data.token,
-        user: { username: data.get("username") },
-      })
-    );
   };
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -40,7 +35,8 @@ function Register() {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
+          backgroundImage:
+            "url(https://z-p3-scontent.frai2-1.fna.fbcdn.net/v/t39.30808-6/240732521_253362726656570_2978354159663101127_n.jpg?_nc_cat=1&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHpPMIAo1iUXVGJLFMtHTJkZwSVPcxSpQFnBJU9zFKlASoiEaIraBwELh-rTcJgNNNPBJY5ZtJX_EhUEDVoCnYC&_nc_ohc=LuQc4oxTVScAX_vMiN8&_nc_zt=23&_nc_ht=z-p3-scontent.frai2-1.fna&oh=00_AfC74-5Emynkm0N3XqDTvqwUkLAApgo1iwKdplNn7yzWeA&oe=64BE8175)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -76,10 +72,10 @@ function Register() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="username"
-              name="email"
-              autoComplete="email"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField

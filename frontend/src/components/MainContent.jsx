@@ -8,6 +8,11 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const { recipie } = useSelector((state) => state.recipie);
+  const { user } = useSelector((state) => state.auth);
+
+  const myRecipie = recipie.filter((item) => item.user_id === user.id);
+
+  const allRecipie = recipie.filter((item) => item.user_id !== user.id);
 
   useEffect(() => {
     dispatch(getMyRecipie());
@@ -23,11 +28,19 @@ function MainContent() {
             My Recipies
           </Typography>
           <Grid container spacing={2}>
-            {recipie?.map((item) => (
-              <Grid item xs={12} md={3}>
-                <RecipeCard data={item} />
+            {myRecipie?.length > 0 ? (
+              <Grid container spacing={2}>
+              {myRecipie?.map((item) => (
+                <Grid item xs={12} md={3}>
+                  <RecipeCard data={item} />
+                </Grid>
+              ))}
+            </Grid>
+            ) : (
+              <Grid container alignItems="center" justifyContent="center">
+                <Typography>You didnt published any recipie yet</Typography>
               </Grid>
-            ))}
+            )}
           </Grid>
         </Grid>
         <Grid container flexDirection="column">
@@ -35,11 +48,19 @@ function MainContent() {
             All Recepies
           </Typography>
           <Grid container spacing={2}>
-            {recipie?.map((item) => (
-              <Grid item xs={12} md={3}>
-                <RecipeCard data={item} />
+          {allRecipie?.length > 0 ? (
+              <Grid container spacing={2}>
+              {allRecipie?.map((item) => (
+                <Grid item xs={12} md={3}>
+                  <RecipeCard data={item} />
+                </Grid>
+              ))}
+            </Grid>
+            ) : (
+              <Grid container alignItems="center" justifyContent="center">
+                <Typography>No Recipies Published</Typography>
               </Grid>
-            ))}
+            )}
           </Grid>
         </Grid>
       </Grid>

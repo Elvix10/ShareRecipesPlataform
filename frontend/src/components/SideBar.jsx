@@ -11,11 +11,12 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Grid } from "@mui/material";
 import DialogCard from "./cards/DialogCard";
 import { signOut } from "../store/slice/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "../utils/axios";
 
 function SideBar() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const [open, setOpen] = React.useState(false);
 
@@ -58,7 +59,7 @@ function SideBar() {
               sx={{ mt: 2 }}
               style={{ color: "#fff" }}
             >
-              Bruno Vaz
+              {user.username}
             </Typography>
           </Grid>
           <Grid

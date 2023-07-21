@@ -14,7 +14,6 @@ function Home() {
          <SideBar/>
         <MainContent /> 
        
-       {/*  <Login/> */}
       </div>
     </div>
   );

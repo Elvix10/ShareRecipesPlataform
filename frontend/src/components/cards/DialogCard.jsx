@@ -7,10 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Stack } from "@mui/system";
 import { axiosInstance } from "../../utils/axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Swal from "sweetalert2";
 import { Box } from "@mui/material";
+import { getMyRecipie } from "../../store/slice/recipie";
 
 export default function DialogCard({ open, close, edit, data }) {
   const dispatch = useDispatch();
@@ -18,20 +19,24 @@ export default function DialogCard({ open, close, edit, data }) {
   const [ingredients, setIngredients] = useState("");
   const [descrption, setDescription] = useState("");
 
+  const { user } = useSelector((state) => state.auth);
+
   const handleSubmit = async () => {
     const response = await axiosInstance
       .post("/recipie", {
         title: title,
         ingredients: ingredients,
         description: descrption,
-        user_id: 1,
+        user_id: user.id,
       })
       .then(() => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Link saved",
+          title: "Recipie publibished",
         });
+
+        dispatch(getMyRecipie())
 
         close();
       });
