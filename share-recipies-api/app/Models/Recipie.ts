@@ -27,5 +27,5 @@ export default class Recipie extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(()=>User)
-  public restaurant: BelongsTo<typeof User>
+  public user: BelongsTo<typeof User>
 }

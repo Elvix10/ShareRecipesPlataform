@@ -34,7 +34,7 @@ function MainContent() {
               <Grid container spacing={2}>
               {myRecipie?.map((item) => (
                 <Grid item xs={12} md={3}>
-                  <RecipeCard data={item} />
+                  <RecipeCard isMy data={item} />
                 </Grid>
               ))}
             </Grid>

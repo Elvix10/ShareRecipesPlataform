@@ -33,7 +33,10 @@ export default class RecipiesController {
   }
 
   public async index() {
-    const recipies = await Recipie.all();
+    //const recipies = await Recipie.query().preload("user");
+
+    const recipies = await Recipie.all()
+
     return {
       data: recipies,
     };
@@ -72,12 +75,11 @@ export default class RecipiesController {
 
       recipie.image = imageName;
     }
-    await recipie.save()
+    await recipie.save();
 
-    return{
-      message:'Recipie atualizado',
-      data:recipie
-    }
-
+    return {
+      message: "Recipie atualizado",
+      data: recipie,
+    };
   }
 }
