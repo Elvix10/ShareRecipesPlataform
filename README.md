@@ -10,4 +10,4 @@ The backend server is built with Adonis.js, a Node.js web framework. It provides
 The frontend app is built with React.js, a JavaScript library for building user interfaces. It consumes the API provided by the backend server and allows users to interact with the recipies
 
 ## Getting Started
-Clone the repository: git clone https://github.com/Elvix10/TraineeDevCV.git Install dependencies for the backend: cd TraineeDevCV/linksManagerAPI && npm install Install dependencies for the frontend: cd TraineeDevCV/linksManagerReactjs && npm install Start the backend server: cd TraineeDevCV/linksManagerAPI && adonis serve --dev Start the frontend app:cd TraineeDevCV/linksManagerReactjs && npm start
+Clone the repository: git clone https://github.com/Elvix10/ShareRecipesPlataform.git Install dependencies for the backend: cd share-recipies-api && npm install Install dependencies for the frontend: cd frontend && npm install Start the backend server: cd share-recipies-api  && adonis serve --dev Start the frontend app:cd frontend && npm start
