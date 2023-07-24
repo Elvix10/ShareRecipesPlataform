@@ -10,9 +10,11 @@ function MainContent() {
   const { recipie } = useSelector((state) => state.recipie);
   const { user } = useSelector((state) => state.auth);
 
-  const myRecipie = recipie.filter((item) => item.user_id === user.id);
+  const myRecipie = recipie?.filter((item) => item?.user_id === user.id);
 
-  const allRecipie = recipie.filter((item) => item.user_id !== user.id);
+  const allRecipie = recipie?.filter((item) => item?.user_id !== user.id);
+
+  
 
   useEffect(() => {
     dispatch(getMyRecipie());
@@ -38,7 +40,7 @@ function MainContent() {
             </Grid>
             ) : (
               <Grid container alignItems="center" justifyContent="center">
-                <Typography>You didnt published any recipie yet</Typography>
+                <Typography>You didnt published any recipie yet click on the button in side bar to share your recipie</Typography>
               </Grid>
             )}
           </Grid>

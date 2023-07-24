@@ -13,10 +13,12 @@ import Typography from "@mui/material/Typography";
 import { axiosInstance } from "../utils/axios";
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/slice/auth";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -24,7 +26,18 @@ function Register() {
      await axiosInstance.post("/user", {
       username: data.get("username"),
       password: data.get("password"),
-    }).then(()=><Navigate to='/login'/>)
+    }).then(()=>{
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "User successfully registed",
+      });
+    })
+
+    navigate("/");
+
+    
+    
 
   };
   return (

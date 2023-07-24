@@ -23,9 +23,11 @@ function SideBar() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
 
-    axiosInstance.post('/logout')
+    await axiosInstance.post('/logout')
+
+    localStorage.removeItem("recipieToken")
     dispatch(signOut())
   };
 
@@ -59,7 +61,7 @@ function SideBar() {
               sx={{ mt: 2 }}
               style={{ color: "#fff" }}
             >
-              {user.username}
+              {user?.username}
             </Typography>
           </Grid>
           <Grid
