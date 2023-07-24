@@ -8,8 +8,9 @@ export default class Recipie extends BaseModel {
 
   @column()
   public title:String
+
   @column()
-  public user_id:Number
+  public userId:Number
 
   @column()
   public description:String

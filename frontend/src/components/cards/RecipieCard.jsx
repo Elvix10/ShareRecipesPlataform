@@ -44,7 +44,7 @@ export default function RecipeCard({ data,isMy }) {
             <MoreVertIcon />
           </IconButton>:""
         }
-        subheader="Published by:"
+        subheader={`Published by: ${data.user?.username}`}
       />
       <CardMedia
         component="img"

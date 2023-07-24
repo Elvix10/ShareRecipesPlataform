@@ -8,8 +8,6 @@ export default class AuthController {
 
     let user = await User.query().where("username", username).firstOrFail();
 
-    console.log("user", user);
-
     try {
       const token = await auth.use("api").attempt(username, password);
       return { token: token, user: { username: user.username, id: user.id } };
